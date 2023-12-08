@@ -1,4 +1,7 @@
 """Classes for melon orders."""
+
+import random
+
 class AbstractMelonOrder:
     """similarities between shipping"""
     #AbstractMelonOrder global variables
@@ -14,6 +17,9 @@ class AbstractMelonOrder:
         
     #get total
     #mark shipped
+     
+    def get_base_price():
+        return random.choice(range(5, 9))
     
     def get_total(self):
         """Calculate price, including tax."""
@@ -23,7 +29,7 @@ class AbstractMelonOrder:
         if self.species == "christmas melon":
             base_price = (5 * 1.5)
         else:
-            base_price = 5
+            base_price = self.get_base_price()
 
         #if international order and has < 10 melons add $3
         if self.order_type == "international" and self.qty < 10:
@@ -39,6 +45,7 @@ class AbstractMelonOrder:
         """Record the fact than an order has been shipped."""
 
         self.shipped = True
+   
 
 
 class GovernmentMelonOrder(AbstractMelonOrder):
