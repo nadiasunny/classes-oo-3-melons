@@ -1,7 +1,9 @@
 """Classes for melon orders."""
 class AbstractMelonOrder:
     """similarities between shipping"""
-    
+    #AbstractMelonOrder global variables
+    tax = 0
+    order_type = None
 
     def __init__(self, species, qty):
         """Initialize melon order attributes."""
@@ -9,8 +11,6 @@ class AbstractMelonOrder:
         self.species = species
         self.qty = qty
         self.shipped = False
-        self.tax = tax
-        self.order_type = order_type
         
     #get total
     #mark shipped
@@ -39,6 +39,24 @@ class AbstractMelonOrder:
         """Record the fact than an order has been shipped."""
 
         self.shipped = True
+
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+    """gov orders w no tax, and see if it passes inspection"""
+    tax = 0
+    order_type = "government"
+
+    #when we call the function govmelon("type", 22, False)
+
+    def __init__(self, species, qty):
+        super().__init__(species, qty)
+        self.passed_inspection = False 
+        print(self.passed_inspection)
+
+    #method to tak in boolean of passed inspection and update variable
+    def mark_inspection(self, passed): #passed is the argument, we will input True or False based on the melon input
+        self.passed_inspection = passed #passed is the boolean that WE will pass through True/False BOOLEAN
+        print(self.passed_inspection)
 
 
 class DomesticMelonOrder(AbstractMelonOrder):
