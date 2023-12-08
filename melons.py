@@ -17,7 +17,11 @@ class AbstractMelonOrder:
         
     #get total
     #mark shipped
-     
+    def check_num_of_melons(self):
+        if self.qty > 100:
+            TooManyMelonsError = TooManyMelonsError()
+            raise TooManyMelonsError
+        
     def get_base_price():
         return random.choice(range(5, 9))
     
@@ -26,6 +30,7 @@ class AbstractMelonOrder:
         #if christmas melon it will cost more
         #else will be 5
         #could we maybe do species.christmas?
+    
         if self.species == "christmas melon":
             base_price = (5 * 1.5)
         else:
@@ -45,7 +50,14 @@ class AbstractMelonOrder:
         """Record the fact than an order has been shipped."""
 
         self.shipped = True
-   
+
+#define too many errors class that inherits from valueerror
+class TooManyMelonsError(Exception):
+    TooManyMelonsError = ValueError
+
+    raise TooManyMelonsError
+ 
+
 
 
 class GovernmentMelonOrder(AbstractMelonOrder):
